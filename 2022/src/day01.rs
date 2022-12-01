@@ -1,34 +1,63 @@
-use std::fs;
-
 fn main() {
-    let list = fs::read_to_string("input/day01.input").expect("Error when reading file.");
-    let mut calories = vec![];
-
-    let mut count = 0;
-    let mut max = 0;
+    let input = include_str!("../input/day01.input");
 
     // Part one
-    for line in list.lines() {
-        if line.len() == 0 {
-            calories.push(count);
-
-            if count > max {
-                max = count;
-            }
-
-            count = 0;
-            continue;
-        }
-
-        let value = u64::from_str_radix(line, 10).expect("Number was in an invalid format.");
-        count += value;
-    };
-
+    let max = first_puzzle(&input);
     println!("The elf carrying the most calories has {} calories.", max);
 
-    // Part two, reusing data from the previous loop
-    calories.sort_by(|a, b| b.cmp(a));
+    // Part two
+    let top_three_sum = second_puzzle(&input);
+    println!("The top three elves are carrying {} calories in total.", top_three_sum);
+}
 
-    let sum: u64 = calories[0..3].iter().sum();
-    println!("The top three elves are carrying {} calories in total.", sum);
+#[test]
+fn sample() {
+    let sample = include_str!("../sample/day01.input");
+    
+    assert_eq!(first_puzzle(&sample), 24000);
+    assert_eq!(second_puzzle(&sample), 45000);
+}
+
+fn first_puzzle(source: &str) -> u64 {
+    source
+        .split("\n\n")
+        .map(|line|
+            line
+                .lines()
+                .map(|num| to_u64(num))
+                .sum()
+        )
+        .max()
+        .unwrap()
+}
+
+fn second_puzzle(source: &str) -> u64 {
+    let mut top = [0, 0, 0];
+
+    source
+        .split("\n\n")
+        .map(|line|
+            line
+                .lines()
+                .map(|num| to_u64(num))
+                .sum()
+        )
+        .for_each(|count| {
+            if count > top[0] {
+                top[2] = top[1];
+                top[1] = top[0];
+                top[0] = count;
+            } else if count > top[1] {
+                top[2] = top[1];
+                top[1] = count
+            } else if count > top[2] {
+                top[2] = count
+            }
+        });
+
+    top.iter().sum()
+}
+
+fn to_u64(source: &str) -> u64 {
+    u64::from_str_radix(source, 10).expect("Number was in an invalid format.")
 }
