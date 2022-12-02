@@ -16,11 +16,11 @@ fn main() {
     let input = include_str!("../input/day02.input");
 
     // Part one
-    let points_incorrect = first_puzzle(&input);
+    let points_incorrect = first_puzzle(input);
     println!("Your final score would be {} points with the incorrectly decrypted guide", points_incorrect);
 
     // Part one
-    let points_correct = second_puzzle(&input);
+    let points_correct = second_puzzle(input);
     println!("Your final score would be {} points with the correctly decrypted guide.", points_correct);
 }
 
@@ -28,14 +28,14 @@ fn main() {
 fn sample() {
     let sample = include_str!("../sample/day02.input");
 
-    assert_eq!(first_puzzle(&sample), 15);
-    assert_eq!(second_puzzle(&sample), 12);
+    assert_eq!(first_puzzle(sample), 15);
+    assert_eq!(second_puzzle(sample), 12);
 }
 
 fn first_puzzle(source: &str) -> i32 {
     source
         .lines()
-        .map(|line| parse_plays(line))
+        .map(parse_plays)
         .map(|(player, enemy)| points(player, play(player, enemy)))
         .sum()
 }
@@ -43,14 +43,14 @@ fn first_puzzle(source: &str) -> i32 {
 fn second_puzzle(source: &str) -> i32 {
     source
         .lines()
-        .map(|line| parse_outcome(line))
+        .map(parse_outcome)
         .map(|(enemy, desired_outcome)| (ensure_outcome(enemy, desired_outcome), enemy))
         .map(|(player, enemy)| points(player, play(player, enemy)))
         .sum()
 }
 
 fn parse_plays(line: &str) -> (Play, Play) {
-    let mut letters = line.split(" ").take(2);
+    let mut letters = line.split(' ').take(2);
 
     let enemy = match letters.next().unwrap() {
         "A" => Play::Rock,
@@ -70,7 +70,7 @@ fn parse_plays(line: &str) -> (Play, Play) {
 }
 
 fn parse_outcome(line: &str) -> (Play, Outcome) {
-    let mut letters = line.split(" ").take(2);
+    let mut letters = line.split(' ').take(2);
 
     let enemy = match letters.next().unwrap() {
         "A" => Play::Rock,

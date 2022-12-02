@@ -2,11 +2,11 @@ fn main() {
     let input = include_str!("../input/day01.input");
 
     // Part one
-    let max = first_puzzle(&input);
+    let max = first_puzzle(input);
     println!("The elf carrying the most calories has {} calories.", max);
 
     // Part two
-    let top_three_sum = second_puzzle(&input);
+    let top_three_sum = second_puzzle(input);
     println!("The top three elves are carrying {} calories in total.", top_three_sum);
 }
 
@@ -14,8 +14,8 @@ fn main() {
 fn sample() {
     let sample = include_str!("../sample/day01.input");
     
-    assert_eq!(first_puzzle(&sample), 24000);
-    assert_eq!(second_puzzle(&sample), 45000);
+    assert_eq!(first_puzzle(sample), 24000);
+    assert_eq!(second_puzzle(sample), 45000);
 }
 
 fn first_puzzle(source: &str) -> u64 {
@@ -24,7 +24,7 @@ fn first_puzzle(source: &str) -> u64 {
         .map(|line|
             line
                 .lines()
-                .map(|num| to_u64(num))
+                .map(to_u64)
                 .sum()
         )
         .max()
@@ -39,7 +39,7 @@ fn second_puzzle(source: &str) -> u64 {
         .map(|line|
             line
                 .lines()
-                .map(|num| to_u64(num))
+                .map(to_u64)
                 .sum()
         )
         .for_each(|count| {
@@ -59,5 +59,5 @@ fn second_puzzle(source: &str) -> u64 {
 }
 
 fn to_u64(source: &str) -> u64 {
-    u64::from_str_radix(source, 10).expect("Number was in an invalid format.")
+    source.parse::<u64>().expect("Number was in an invalid format.")
 }
