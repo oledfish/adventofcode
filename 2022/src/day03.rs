@@ -1,5 +1,3 @@
-use std::collections::HashSet;
-
 fn main() {
     let input = include_str!("../input/day03.input");
 
@@ -56,20 +54,13 @@ fn find_match(line1: &str, line2: &str) -> char {
     assert!(line1.is_ascii(), "Invalid format");
     assert!(line2.is_ascii(), "Invalid format");
 
-    let mut result = None;
-    line1
-        .chars()
-        .for_each(|c| {
-            if line2.contains(c) {
-                result = Some(c);
-            }
-        });
-
-    if result.is_none() {
-        panic!("No match found");
+    for c in line1.chars() {
+        if line2.contains(c) {
+            return c;
+        }
     }
 
-    result.unwrap()
+    panic!("No match found");
 }
 
 fn find_badge(group: &str) -> char {
@@ -81,20 +72,13 @@ fn find_badge(group: &str) -> char {
     let line2 = lines.next().unwrap();
     let line3 = lines.next().unwrap();
 
-    let mut result = None;
-    line1
-        .chars()
-        .for_each(|c| {
-            if line2.contains(c) && line3.contains(c) {
-                result = Some(c);
-            }
-        });
-
-    if result.is_none() {
-        panic!("No badge found");
+    for c in line1.chars() {
+        if line2.contains(c) && line3.contains(c) {
+            return c;
+        }
     }
 
-    result.unwrap()
+    panic!("No badge found");
 }
 
 fn priority(character: char) -> u64 {
