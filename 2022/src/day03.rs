@@ -51,17 +51,25 @@ fn second_puzzle(source: &str) -> u64 {
     count
 }
  
-fn find_match(first: &str, second: &str) -> char {
-    assert_eq!(first.len(), second.len(), "Rucksacks must be of the same size");
-    assert!(first.is_ascii(), "Invalid format");
-    assert!(second.is_ascii(), "Invalid format");
+fn find_match(line1: &str, line2: &str) -> char {
+    assert_eq!(line1.len(), line2.len(), "Rucksacks must be of the same size");
+    assert!(line1.is_ascii(), "Invalid format");
+    assert!(line2.is_ascii(), "Invalid format");
 
-    let first_chars: HashSet<char> = HashSet::from_iter(first.chars());
-    let second_chars: HashSet<char> = HashSet::from_iter(second.chars());
+    let mut result = None;
+    line1
+        .chars()
+        .for_each(|c| {
+            if line2.contains(c) {
+                result = Some(c);
+            }
+        });
 
-    let mut matching = first_chars.intersection(&second_chars);
+    if result.is_none() {
+        panic!("No match found");
+    }
 
-    *matching.next().unwrap()
+    result.unwrap()
 }
 
 fn find_badge(group: &str) -> char {
@@ -70,72 +78,29 @@ fn find_badge(group: &str) -> char {
     let mut lines = group.lines();
 
     let line1 = lines.next().unwrap();
-    let sack1: HashSet<char> = HashSet::from_iter(line1.chars());
-
     let line2 = lines.next().unwrap();
-    let sack2: HashSet<char> = HashSet::from_iter(line2.chars());
-
     let line3 = lines.next().unwrap();
-    let sack3: HashSet<char> = HashSet::from_iter(line3.chars());
 
-    // Three-way intersection, I don't actually know how it works
-    *sack1.iter().filter(|k| sack2.contains(k)).find(|k| sack3.contains(k)).unwrap()
+    let mut result = None;
+    line1
+        .chars()
+        .for_each(|c| {
+            if line2.contains(c) && line3.contains(c) {
+                result = Some(c);
+            }
+        });
+
+    if result.is_none() {
+        panic!("No badge found");
+    }
+
+    result.unwrap()
 }
 
 fn priority(character: char) -> u64 {
     match character {
-        'a' => 1,
-        'b' => 2,
-        'c' => 3,
-        'd' => 4,
-        'e' => 5,
-        'f' => 6,
-        'g' => 7,
-        'h' => 8,
-        'i' => 9,
-        'j' => 10,
-        'k' => 11,
-        'l' => 12,
-        'm' => 13,
-        'n' => 14,
-        'o' => 15,
-        'p' => 16,
-        'q' => 17,
-        'r' => 18,
-        's' => 19,
-        't' => 20,
-        'u' => 21,
-        'v' => 22,
-        'w' => 23,
-        'x' => 24,
-        'y' => 25,
-        'z' => 26,
-        'A' => 27,
-        'B' => 28,
-        'C' => 29,
-        'D' => 30,
-        'E' => 31,
-        'F' => 32,
-        'G' => 33,
-        'H' => 34,
-        'I' => 35,
-        'J' => 36,
-        'K' => 37,
-        'L' => 38,
-        'M' => 39,
-        'N' => 40,
-        'O' => 41,
-        'P' => 42,
-        'Q' => 43,
-        'R' => 44,
-        'S' => 45,
-        'T' => 46,
-        'U' => 47,
-        'V' => 48,
-        'W' => 49,
-        'X' => 50,
-        'Y' => 51,
-        'Z' => 52,
+        character @ 'a'..='z' => character as u64 - 96,
+        character @ 'A'..='Z' => character as u64 - 38,
         _ => panic!("Invalid character.")
     }
 }
