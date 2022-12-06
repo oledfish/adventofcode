@@ -1,4 +1,5 @@
-use std::collections::VecDeque;
+#![allow(unused_imports)]
+use std::{collections::VecDeque, iter::zip};
 
 fn main() {
     let input = include_str!("../input/day06.input");
@@ -16,19 +17,14 @@ fn main() {
 fn sample() {
     let sample = include_str!("../sample/day06.input");
 
-    // Part one
-    assert_eq!(first_puzzle(sample), 7);
-    assert_eq!(first_puzzle("bvwbjplbgvbhsrlpgdmjqwftvncz"), 5);
-    assert_eq!(first_puzzle("nppdvjthqldpwncqszvftbrmjlhg"), 6);
-    assert_eq!(first_puzzle("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg"), 10);
-    assert_eq!(first_puzzle("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw"), 11);
+    let results = [(7, 19), (5, 23), (6, 23), (10, 29), (11, 26)];
+    let lines = sample.lines();
 
-    // Part two
-    assert_eq!(second_puzzle(sample), 19);
-    assert_eq!(second_puzzle("bvwbjplbgvbhsrlpgdmjqwftvncz"), 23);
-    assert_eq!(second_puzzle("nppdvjthqldpwncqszvftbrmjlhg"), 23);
-    assert_eq!(second_puzzle("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg"), 29);
-    assert_eq!(second_puzzle("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw"), 26);
+    zip(results.iter(), lines)
+        .for_each(|(results, line)| {
+            assert_eq!(first_puzzle(line), results.0);
+            assert_eq!(second_puzzle(line), results.1);
+        });
 }
 
 fn first_puzzle(source: &str) -> usize {
