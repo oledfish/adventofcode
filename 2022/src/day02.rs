@@ -19,7 +19,7 @@ fn main() {
     let points_incorrect = first_puzzle(input);
     println!("Your final score would be {} points with the incorrectly decrypted guide", points_incorrect);
 
-    // Part one
+    // Part two
     let points_correct = second_puzzle(input);
     println!("Your final score would be {} points with the correctly decrypted guide.", points_correct);
 }
