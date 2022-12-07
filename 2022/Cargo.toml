@@ -30,3 +30,7 @@ path = "src/day05.rs"
 [[bin]] # fischl
 name = "day06"
 path = "src/day06.rs"
+
+[[bin]] # raquel
+name = "day07"
+path = "src/day07.rs"
