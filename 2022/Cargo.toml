@@ -2,7 +2,7 @@
 name = "adventofcode-2022"
 version = "0.1.0"
 description = "Advent of Code puzzles, 2022 edition."
-authors = ["fischl", "lotus", "raquel", "venustas"]
+authors = ["fischl", "lotus", "morgan", "raquel", "venustas"]
 edition = "2021"
 
 [dependencies]
@@ -38,3 +38,7 @@ path = "src/day07.rs"
 [[bin]] # raquel
 name = "day08"
 path = "src/day08.rs"
+
+[[bin]] # morgan
+name = "day09"
+path = "src/day09.rs"
