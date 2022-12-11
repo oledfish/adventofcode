@@ -53,7 +53,7 @@ fn solve(source: &str, num_rounds: usize, use_supermodulo: bool) -> u64 {
         supermodulo = Some(turns
             .iter()
             .map(|turn| turn.divisor)
-            .fold(1u64, |mut mul, num| { mul *= num; mul }))
+            .fold(3, |mut mul, num| { mul *= num; mul }))
     }
 
     for _ in 1..=num_rounds {
