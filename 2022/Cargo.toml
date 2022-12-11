@@ -7,6 +7,9 @@ edition = "2021"
 
 [dependencies]
 
+[profile.release]
+opt-level = 3
+
 [[bin]] # venustas, raquel
 name = "day01"
 path = "src/day01.rs"
@@ -46,3 +49,7 @@ path = "src/day09.rs"
 [[bin]] # morgan
 name = "day10"
 path = "src/day10.rs"
+
+[[bin]] # raquel
+name = "day11"
+path = "src/day11.rs"
