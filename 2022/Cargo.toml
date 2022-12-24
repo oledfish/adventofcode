@@ -6,6 +6,7 @@ authors = ["fischl", "lotus", "morgan", "raquel", "venustas"]
 edition = "2021"
 
 [dependencies]
+nalgebra = "0.31.4"
 
 [profile.release]
 opt-level = 3
@@ -101,3 +102,7 @@ path = "src/day22.rs"
 [[bin]] # morgan
 name = "day23"
 path = "src/day23.rs"
+
+[[bin]] # raquel
+name = "day24"
+path = "src/day24.rs"
